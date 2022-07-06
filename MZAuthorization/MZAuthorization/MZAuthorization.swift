@@ -26,7 +26,7 @@ public struct MZAuthorization {
     ///   - type: 权限类型
     ///   - success: 获取权限成功
     ///   - failure: 获取权限失败（只有定位服务不可用时才会有回调）
-    static func requestAuth(type: MZAuthorizationType, success: @escaping () -> Void, failure: (() -> Void)? = nil) {
+    public static func requestAuth(type: MZAuthorizationType, success: @escaping () -> Void, failure: (() -> Void)? = nil) {
         switch type {
         case .photoAddOnly:
             let status = MZAuthorizationTool.photoAuthorizationStatus(level: .addOnly)
@@ -166,7 +166,7 @@ public struct MZAuthorization {
     
     /// 展示授权弹框
     /// - Parameter type: 授权类型
-    static func showDeniedAlert(type: MZAuthorizationType) {
+    public static func showDeniedAlert(type: MZAuthorizationType) {
         let appName = (Bundle.main.infoDictionary!["CFBundleDisplayName"] ?? Bundle.main.infoDictionary!["CFBundleName"]) as! String
         var title = ""
         var description = ""

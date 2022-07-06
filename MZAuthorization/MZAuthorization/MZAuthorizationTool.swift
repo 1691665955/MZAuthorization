@@ -45,7 +45,7 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
     /// 获取相册权限状态
     /// - Parameter level: 权限等级
     /// - Returns: 权限状态
-    static func photoAuthorizationStatus(level: KPhotoAccessLevel = .readWrite) -> MZAuthorizationStatus {
+    public static func photoAuthorizationStatus(level: KPhotoAccessLevel = .readWrite) -> MZAuthorizationStatus {
         var status: PHAuthorizationStatus!
         if #available(iOS 14, *) {
             status = PHPhotoLibrary.authorizationStatus(for: level == .addOnly ? .addOnly : .readWrite)
@@ -57,21 +57,21 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
     
     /// 获取相机权限状态
     /// - Returns: 权限状态
-    static func cameraAuthorizationStatus() -> MZAuthorizationStatus {
+    public static func cameraAuthorizationStatus() -> MZAuthorizationStatus {
         let status = AVCaptureDevice.authorizationStatus(for: .video)
         return MZAuthorizationStatus.init(rawValue: status.rawValue)!
     }
     
     /// 获取麦克风权限状态
     /// - Returns: 权限状态
-    static func micAuthorizationStatus() -> MZAuthorizationStatus {
+    public static func micAuthorizationStatus() -> MZAuthorizationStatus {
         let status = AVCaptureDevice.authorizationStatus(for: .audio)
         return MZAuthorizationStatus.init(rawValue: status.rawValue)!
     }
     
     /// 获取通讯录权限状态
     /// - Returns: 权限状态
-    static func contactAuthorizationStatus() -> MZAuthorizationStatus {
+    public static func contactAuthorizationStatus() -> MZAuthorizationStatus {
         let status = CNContactStore.authorizationStatus(for: .contacts)
         return MZAuthorizationStatus.init(rawValue: status.rawValue)!
     }
@@ -79,14 +79,14 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
     /// 获取日历权限状态
     /// - Parameter type: 权限类型
     /// - Returns: 权限状态
-    static func calendarAuthorizationStatus(type: EKEntityType) -> MZAuthorizationStatus {
+    public static func calendarAuthorizationStatus(type: EKEntityType) -> MZAuthorizationStatus {
         let status = EKEventStore.authorizationStatus(for: type)
         return MZAuthorizationStatus.init(rawValue: status.rawValue)!
     }
     
     /// 获取定位权限状态
     /// - Returns: 权限状态
-    static func locationAuthorizationStatus() -> MZAuthorizationStatus {
+    public static func locationAuthorizationStatus() -> MZAuthorizationStatus {
         if !CLLocationManager.locationServicesEnabled() {
             return .disable
         }
@@ -104,7 +104,7 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
     
     /// 获取推送权限状态
     /// - Returns: 权限状态
-    static func notificationAuthorizationStatus() -> MZAuthorizationStatus {
+    public static func notificationAuthorizationStatus() -> MZAuthorizationStatus {
         if #available(iOS 10.0, *) {
             var status: MZAuthorizationStatus = .denied
             let sema = DispatchSemaphore(value: 0)
@@ -131,7 +131,7 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
     /// - Parameters:
     ///   - level: 权限等级
     ///   - completionHandler: 授权回调
-    static func requestPhotoAuthorization(level: KPhotoAccessLevel = .readWrite, completionHandler: @escaping (Bool) -> Void) {
+    public static func requestPhotoAuthorization(level: KPhotoAccessLevel = .readWrite, completionHandler: @escaping (Bool) -> Void) {
         if #available(iOS 14, *) {
             PHPhotoLibrary.requestAuthorization(for: level == .addOnly ? .addOnly : .readWrite) { status in
                 completionHandler(status == .authorized)
@@ -145,19 +145,19 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
     
     /// 获取相机授权
     /// - Parameter completionHandler: 授权回调
-    static func requsetCameraAuthorization(completionHandler: @escaping (Bool) -> Void) {
+    public static func requsetCameraAuthorization(completionHandler: @escaping (Bool) -> Void) {
         AVCaptureDevice.requestAccess(for: .video, completionHandler: completionHandler)
     }
     
     /// 获取麦克风授权
     /// - Parameter completionHandler: 授权回调
-    static func requestMicAuthorization(completionHandler: @escaping (Bool) -> Void) {
+    public static func requestMicAuthorization(completionHandler: @escaping (Bool) -> Void) {
         AVCaptureDevice.requestAccess(for: .audio, completionHandler: completionHandler)
     }
     
     /// 获取通讯录授权
     /// - Parameter completionHandler: 授权回调
-    static func requestContactAuthorization(completionHandler: @escaping (Bool) -> Void) {
+    public static func requestContactAuthorization(completionHandler: @escaping (Bool) -> Void) {
         CNContactStore().requestAccess(for: .contacts) { granted, error in
             if error == nil {
                 completionHandler(granted)
@@ -171,7 +171,7 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
     /// - Parameters:
     ///   - type: 授权类型
     ///   - completionHandler: 授权回调
-    static func requestCalendarAuthorization(type: EKEntityType, completionHandler: @escaping (Bool) -> Void) {
+    public static func requestCalendarAuthorization(type: EKEntityType, completionHandler: @escaping (Bool) -> Void) {
         EKEventStore().requestAccess(to: type) { granted, error in
             if error == nil {
                 completionHandler(granted)
@@ -185,7 +185,7 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
     /// - Parameters:
     ///   - level: 授权等级
     ///   - completionHandler: 授权回调
-    static func requestLocationAuthorization(level: KLocationAuthLevel, completionHandler: @escaping (Bool) -> Void) {
+    public static func requestLocationAuthorization(level: KLocationAuthLevel, completionHandler: @escaping (Bool) -> Void) {
         if level == .whenInUse {
             instance.locationManager.requestWhenInUseAuthorization()
         } else {
