@@ -19,9 +19,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        //        MZAuthorization.requestAuth(type: .camera) {
-        //            print("相机权限打开成功")
-        //        }
+                MZAuthorization.requestAuth(type: .camera) {
+                    print("相机权限打开成功")
+                }
         
         //        MZAuthorization.requestAuth(type: .mic) {
         //            print("麦克风权限打开成功")

@@ -208,6 +208,28 @@ public struct MZAuthorization {
             }
         }))
         alert.addAction(UIAlertAction(title: "不允许", style: .cancel, handler: nil))
-        UIApplication.shared.delegate?.window!!.rootViewController?.present(alert, animated: true)
+        currentViewController()?.present(alert, animated: true)
+    }
+    
+    private public static func currentViewController() -> UIViewController? {
+        guard let controller = UIApplication.shared.keyWindow?.rootViewController else {
+            return nil
+        }
+        return self.currentViewControllerFrom(controller)
+    }
+    
+    private static func currentViewControllerFrom(_ root: UIViewController) -> UIViewController {
+        let currentViewController: UIViewController
+        if root.presentedViewController != nil {
+            return self.currentViewControllerFrom(root.presentedViewController!)
+        }
+        if root.isKind(of: UITabBarController.classForCoder()) {
+            currentViewController = self.currentViewControllerFrom((root as! UITabBarController).selectedViewController!)
+        } else if root.isKind(of: UINavigationController.classForCoder()) {
+            currentViewController = self.currentViewControllerFrom((root as! UINavigationController).visibleViewController!)
+        } else {
+            currentViewController = root
+        }
+        return currentViewController
     }
 }
