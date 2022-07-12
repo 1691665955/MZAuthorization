@@ -211,7 +211,7 @@ public struct MZAuthorization {
         currentViewController()?.present(alert, animated: true)
     }
     
-    private public static func currentViewController() -> UIViewController? {
+    private static func currentViewController() -> UIViewController? {
         guard let controller = UIApplication.shared.keyWindow?.rootViewController else {
             return nil
         }
