@@ -3,7 +3,7 @@ Swift应用权限授权申请统一处理
 
 #### Cocoapods 引入
 ```
-pod 'MZAuthorization', '~> 0.0.2'
+pod 'MZAuthorization', '~> 0.0.3'
 ```
 
 ### 权限类型

@@ -33,6 +33,7 @@ public enum KLocationAuthLevel: Int {
 public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
     
     private static let instance: MZAuthorizationTool = MZAuthorizationTool()
+    private var locationCompletionHandler: ((Bool) -> Void)?
     
     private lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
@@ -186,6 +187,7 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
     ///   - level: 授权等级
     ///   - completionHandler: 授权回调
     public static func requestLocationAuthorization(level: KLocationAuthLevel, completionHandler: @escaping (Bool) -> Void) {
+        MZAuthorizationTool.instance.locationCompletionHandler = completionHandler
         if level == .whenInUse {
             instance.locationManager.requestWhenInUseAuthorization()
         } else {
@@ -194,4 +196,21 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    //MARK: - CLLocationManagerDelegate
+    public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let status = MZAuthorizationTool.locationAuthorizationStatus()
+        if status == .authorized || status == .limited {
+            self.locationCompletionHandler!(true)
+        } else {
+            self.locationCompletionHandler!(false)
+        }
+    }
+    
+    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            self.locationCompletionHandler!(true)
+        } else {
+            self.locationCompletionHandler!(false)
+        }
+    }
 }
