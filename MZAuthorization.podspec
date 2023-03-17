@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "MZAuthorization"
-  spec.version      = "0.0.3"
+  spec.version      = "0.0.4"
   spec.summary      = "Swift应用权限授权申请统一处理"
   spec.homepage     = "https://github.com/1691665955/MZAuthorization"
   spec.authors         = { 'MZ' => '1691665955@qq.com' }

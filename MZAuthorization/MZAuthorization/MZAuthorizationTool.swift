@@ -110,7 +110,8 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
             var status: MZAuthorizationStatus = .denied
             let sema = DispatchSemaphore(value: 0)
             UNUserNotificationCenter.current().getNotificationSettings { settings in
-                status = MZAuthorizationStatus.init(rawValue: settings.authorizationStatus.rawValue) ?? .denied
+                let rawValue = settings.authorizationStatus.rawValue
+                status = MZAuthorizationStatus.init(rawValue: rawValue == 0 ? 0 : rawValue + 1) ?? .denied
                 sema.signal()
             }
             sema.wait()
