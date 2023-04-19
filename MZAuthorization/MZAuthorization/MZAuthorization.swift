@@ -17,6 +17,7 @@ public enum MZAuthorizationType {
     case reminder           // 提醒
     case locationWhenInUse  // 定位
     case locationAlways     // 定位
+    case bluetooth          // 蓝牙
 }
 
 public struct MZAuthorization {
@@ -176,6 +177,28 @@ public struct MZAuthorization {
             default:
                 break
             }
+        case .bluetooth:
+            let status = MZAuthorizationTool.bluetoothAuthorizationStatus()
+            switch status {
+            case .notDetermined:
+                MZAuthorizationTool.requestBluetoothAuthorization { granted in
+                    if granted {
+                        DispatchQueue.main.async {
+                            success()
+                        }
+                    }
+                }
+            case .denied:
+                showDeniedAlert(type: type)
+            case .authorized, .limited:
+                success()
+            case .disable:
+                if failure != nil {
+                    failure!()
+                }
+            default:
+                break
+            }
         }
     }
     
@@ -214,6 +237,9 @@ public struct MZAuthorization {
         case .locationAlways:
             title = "允许“\(appName)”使用您的位置？"
             description = Bundle.main.infoDictionary!["NSLocationAlwaysUsageDescription"] as! String
+        case .bluetooth:
+            title = "“\(appName)”想访问您的蓝牙"
+            description = Bundle.main.infoDictionary!["NSBluetoothAlwaysUsageDescription"] as! String
         }
         let alert = UIAlertController(title: title , message: description, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "前往开启", style: .default, handler: { _ in
@@ -227,8 +253,17 @@ public struct MZAuthorization {
         currentViewController()?.present(alert, animated: true)
     }
     
+    private static func currentWindow() -> UIWindow? {
+        let app = UIApplication.shared
+        if let window = app.delegate?.window {
+            return window
+        } else {
+            return app.keyWindow
+        }
+    }
+    
     private static func currentViewController() -> UIViewController? {
-        guard let controller = UIApplication.shared.keyWindow?.rootViewController else {
+        guard let controller = currentWindow()?.rootViewController else {
             return nil
         }
         return self.currentViewControllerFrom(controller)

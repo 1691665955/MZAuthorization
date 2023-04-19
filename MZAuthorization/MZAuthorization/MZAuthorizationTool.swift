@@ -10,6 +10,7 @@ import Photos
 import AVFoundation
 import Contacts
 import EventKit
+import CoreBluetooth
 
 public enum MZAuthorizationStatus: Int {
     case notDetermined = 0
@@ -30,13 +31,20 @@ public enum KLocationAuthLevel: Int {
     case always = 2
 }
 
-public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
+public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate, CBCentralManagerDelegate {
     
     private static let instance: MZAuthorizationTool = MZAuthorizationTool()
     private var locationCompletionHandler: ((Bool) -> Void)?
+    private var bluetoothCompletionHandler: ((Bool) -> Void)?
     
     private lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
+        manager.delegate = self
+        return manager
+    }()
+    
+    private lazy var bluetoothManager: CBCentralManager = {
+        let manager = CBCentralManager()
         manager.delegate = self
         return manager
     }()
@@ -126,6 +134,18 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    /// 获取蓝牙权限状态
+    /// - Returns: 权限状态
+    public static func bluetoothAuthorizationStatus() -> MZAuthorizationStatus {
+        if #available(iOS 13.1, *) {
+            let status = CBPeripheralManager.authorization
+            return MZAuthorizationStatus(rawValue: status.rawValue) ?? .denied
+        } else {
+            let status = CBPeripheralManager.authorizationStatus()
+            return MZAuthorizationStatus(rawValue: status.rawValue) ?? .denied
+        }
+    }
+    
     //MARK: - 获取权限授权
     
     
@@ -197,21 +217,44 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    /// 获取蓝牙授权
+    /// - Parameter completionHandler: 授权回调
+    public static func requestBluetoothAuthorization(completionHandler: @escaping (Bool) -> Void) {
+        MZAuthorizationTool.instance.bluetoothCompletionHandler = completionHandler
+        instance.bluetoothManager.scanForPeripherals(withServices: nil)
+    }
+    
     //MARK: - CLLocationManagerDelegate
     public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let status = MZAuthorizationTool.locationAuthorizationStatus()
         if status == .authorized || status == .limited {
-            self.locationCompletionHandler!(true)
+            self.locationCompletionHandler?(true)
+            self.locationCompletionHandler = nil
         } else {
-            self.locationCompletionHandler!(false)
+            self.locationCompletionHandler?(false)
+            self.locationCompletionHandler = nil
         }
     }
     
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
-            self.locationCompletionHandler!(true)
+            self.locationCompletionHandler?(true)
+            self.locationCompletionHandler = nil
         } else {
-            self.locationCompletionHandler!(false)
+            self.locationCompletionHandler?(false)
+            self.locationCompletionHandler = nil
+        }
+    }
+    
+    //MARK: - CBPeripheralManagerDelegate
+    public func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        let status = MZAuthorizationTool.bluetoothAuthorizationStatus()
+        if status == .authorized || status == .limited {
+            self.bluetoothCompletionHandler?(true)
+            self.bluetoothCompletionHandler = nil
+        } else {
+            self.bluetoothCompletionHandler?(false)
+            self.bluetoothCompletionHandler = nil
         }
     }
 }

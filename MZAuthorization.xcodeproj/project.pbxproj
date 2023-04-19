@@ -307,6 +307,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MZAuthorization/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MZAuthorization;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "搜索蓝牙设备需要使用到蓝牙权限";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "添加提醒需要使用到日历权限";
 				INFOPLIST_KEY_NSCameraUsageDescription = "拍照需要使用相机权限";
 				INFOPLIST_KEY_NSContactsUsageDescription = "获取联系人方式需要使用到通讯录权限";
@@ -347,6 +348,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MZAuthorization/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MZAuthorization;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "搜索蓝牙设备需要使用到蓝牙权限";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "添加提醒需要使用到日历权限";
 				INFOPLIST_KEY_NSCameraUsageDescription = "拍照需要使用相机权限";
 				INFOPLIST_KEY_NSContactsUsageDescription = "获取联系人方式需要使用到通讯录权限";
