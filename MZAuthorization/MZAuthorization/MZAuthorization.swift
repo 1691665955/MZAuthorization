@@ -211,45 +211,45 @@ public struct MZAuthorization {
         var description = ""
         switch type {
         case .photoAddOnly:
-            title = "“\(appName)”想要加入您的“照片”"
+            title = "PhotoTitle_add"
             description = Bundle.main.infoDictionary!["NSPhotoLibraryAddUsageDescription"] as! String
         case .photoReadWrite:
-            title = "“\(appName)”想访问您的相册"
+            title = "PhotoTitle_all"
             description = Bundle.main.infoDictionary!["NSPhotoLibraryUsageDescription"] as! String
         case .camera:
-            title = "“\(appName)”想访问您的相机"
+            title = "CameraTitle"
             description = Bundle.main.infoDictionary!["NSCameraUsageDescription"] as! String
         case .mic:
-            title = "“\(appName)”想访问您的麦克风"
+            title = "MicTitle"
             description = Bundle.main.infoDictionary!["NSMicrophoneUsageDescription"] as! String
         case .contact:
-            title = "“\(appName)”想访问您的通讯录"
+            title = "ContactTitle"
             description = Bundle.main.infoDictionary!["NSContactsUsageDescription"] as! String
         case .event:
-            title = "“\(appName)”想访问您的日历"
+            title = "EventTitle"
             description = Bundle.main.infoDictionary!["NSCalendarsUsageDescription"] as! String
         case .reminder:
-            title = "“\(appName)”想访问您的提醒事项"
+            title = "ReminderTitle"
             description = Bundle.main.infoDictionary!["NSRemindersUsageDescription"] as! String
         case .locationWhenInUse:
-            title = "允许“\(appName)”使用您的位置？"
+            title = "LocationTitle"
             description = Bundle.main.infoDictionary!["NSLocationWhenInUseUsageDescription"] as! String
         case .locationAlways:
-            title = "允许“\(appName)”使用您的位置？"
+            title = "LocationTitle"
             description = Bundle.main.infoDictionary!["NSLocationAlwaysUsageDescription"] as! String
         case .bluetooth:
-            title = "“\(appName)”想访问您的蓝牙"
+            title = "BleTitle"
             description = Bundle.main.infoDictionary!["NSBluetoothAlwaysUsageDescription"] as! String
         }
-        let alert = UIAlertController(title: title , message: description, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "前往开启", style: .default, handler: { _ in
+        let alert = UIAlertController(title: String(format: title.localized(), appName) , message: description, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "PermissionGo".localized(), style: .default, handler: { _ in
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             } else {
                 UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
             }
         }))
-        alert.addAction(UIAlertAction(title: "不允许", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "PermissionNot".localized(), style: .cancel, handler: nil))
         currentViewController()?.present(alert, animated: true)
     }
     

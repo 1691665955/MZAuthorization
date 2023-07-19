@@ -138,7 +138,10 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate, CBCentral
     /// - Returns: 权限状态
     public static func bluetoothAuthorizationStatus() -> MZAuthorizationStatus {
         if #available(iOS 13.1, *) {
-            let status = CBPeripheralManager.authorization
+            let status = CBCentralManager.authorization
+            return MZAuthorizationStatus(rawValue: status.rawValue) ?? .denied
+        } else if #available(iOS 13.0, *) {
+            let status = CBCentralManager().authorization
             return MZAuthorizationStatus(rawValue: status.rawValue) ?? .denied
         } else {
             let status = CBPeripheralManager.authorizationStatus()
@@ -257,4 +260,5 @@ public class MZAuthorizationTool: NSObject, CLLocationManagerDelegate, CBCentral
             self.bluetoothCompletionHandler = nil
         }
     }
+    
 }

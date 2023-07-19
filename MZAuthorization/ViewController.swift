@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import CoreBluetooth
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -14,7 +15,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let status = CBCentralManager(delegate: nil, queue: nil).state
+        print(status.rawValue)
     }
     
     @IBAction func getAuth(_ sender: Any) {

@@ -15,6 +15,9 @@
 		6A0791592872BCBA00806648 /* MZAuthorizationTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0791582872BCBA00806648 /* MZAuthorizationTool.swift */; };
 		6A07915B2872DFC200806648 /* MZAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A07915A2872DFC200806648 /* MZAuthorization.swift */; };
 		6A07915D2873D13E00806648 /* MZPhotoAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A07915C2873D13E00806648 /* MZPhotoAsset.swift */; };
+		71F417502A663165008082FD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71F417522A663165008082FD /* Localizable.strings */; };
+		71F417572A668CF0008082FD /* Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F417562A668CF0008082FD /* Localized.swift */; };
+		71F417592A668E68008082FD /* MZAuthorization.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 71F417582A668E68008082FD /* MZAuthorization.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,12 @@
 		6A0791582872BCBA00806648 /* MZAuthorizationTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MZAuthorizationTool.swift; sourceTree = "<group>"; };
 		6A07915A2872DFC200806648 /* MZAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MZAuthorization.swift; sourceTree = "<group>"; };
 		6A07915C2873D13E00806648 /* MZPhotoAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MZPhotoAsset.swift; sourceTree = "<group>"; };
+		71F417512A663165008082FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		71F417532A663171008082FD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		71F417542A663179008082FD /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		71F417552A663184008082FD /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		71F417562A668CF0008082FD /* Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localized.swift; sourceTree = "<group>"; };
+		71F417582A668E68008082FD /* MZAuthorization.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MZAuthorization.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +73,7 @@
 				6A0791432872BB5300806648 /* AppDelegate.swift */,
 				6A0791472872BB5300806648 /* ViewController.swift */,
 				6A07915C2873D13E00806648 /* MZPhotoAsset.swift */,
+				71F417522A663165008082FD /* Localizable.strings */,
 				6A0791492872BB5300806648 /* Main.storyboard */,
 				6A07914C2872BB5700806648 /* Assets.xcassets */,
 				6A07914E2872BB5700806648 /* LaunchScreen.storyboard */,
@@ -77,6 +87,8 @@
 			children = (
 				6A0791582872BCBA00806648 /* MZAuthorizationTool.swift */,
 				6A07915A2872DFC200806648 /* MZAuthorization.swift */,
+				71F417562A668CF0008082FD /* Localized.swift */,
+				71F417582A668E68008082FD /* MZAuthorization.bundle */,
 			);
 			path = MZAuthorization;
 			sourceTree = "<group>";
@@ -123,6 +135,9 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				"zh-Hant",
+				ja,
 			);
 			mainGroup = 6A0791372872BB5300806648;
 			productRefGroup = 6A0791412872BB5300806648 /* Products */;
@@ -140,8 +155,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A0791502872BB5700806648 /* LaunchScreen.storyboard in Resources */,
+				71F417502A663165008082FD /* Localizable.strings in Resources */,
 				6A07914D2872BB5700806648 /* Assets.xcassets in Resources */,
 				6A07914B2872BB5300806648 /* Main.storyboard in Resources */,
+				71F417592A668E68008082FD /* MZAuthorization.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A07915B2872DFC200806648 /* MZAuthorization.swift in Sources */,
+				71F417572A668CF0008082FD /* Localized.swift in Sources */,
 				6A0791482872BB5300806648 /* ViewController.swift in Sources */,
 				6A0791442872BB5300806648 /* AppDelegate.swift in Sources */,
 				6A07915D2873D13E00806648 /* MZPhotoAsset.swift in Sources */,
@@ -179,6 +197,17 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		71F417522A663165008082FD /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				71F417512A663165008082FD /* en */,
+				71F417532A663171008082FD /* zh-Hans */,
+				71F417542A663179008082FD /* zh-Hant */,
+				71F417552A663184008082FD /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -186,6 +215,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -246,6 +276,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
